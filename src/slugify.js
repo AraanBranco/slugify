@@ -1,6 +1,6 @@
+'use strict';
 
-//https://github.com/django/django/blob/master/django/contrib/admin/static/admin/js/urlify.js
-var charMap = {
+const charMap = {
   // latin
   'À': 'A', 'Á': 'A', 'Â': 'A', 'Ã': 'A', 'Ä': 'A', 'Å': 'A', 'Æ': 'AE',
   'Ç': 'C', 'È': 'E', 'É': 'E', 'Ê': 'E', 'Ë': 'E', 'Ì': 'I', 'Í': 'I',
@@ -50,36 +50,43 @@ var charMap = {
   // latvian
   'ā':'a', 'č':'c', 'ē':'e', 'ģ':'g', 'ī':'i', 'ķ':'k', 'ļ':'l', 'ņ':'n',
   'š':'s', 'ū':'u', 'ž':'z', 'Ā':'A', 'Č':'C', 'Ē':'E', 'Ģ':'G', 'Ī':'i',
-  'Ķ':'k', 'Ļ':'L', 'Ņ':'N', 'Š':'S', 'Ū':'u', 'Ž':'Z',
+  'Ķ':'k', 'Ļ':'L', 'Ņ':'N', 'Š':'S', 'Ū':'u', 'Ž':'Z'
   // currency
-  '€': 'euro', '₢': 'cruzeiro', '₣': 'french franc', '£': 'pound',
-  '₤': 'lira', '₥': 'mill', '₦': 'naira', '₧': 'peseta', '₨': 'rupee',
-  '₩': 'won', '₪': 'new shequel', '₫': 'dong', '₭': 'kip', '₮': 'tugrik',
-  '₯': 'drachma', '₰': 'penny', '₱': 'peso', '₲': 'guarani', '₳': 'austral',
-  '₴': 'hryvnia', '₵': 'cedi', '¢': 'cent', '¥': 'yen', '元': 'yuan',
-  '円': 'yen', '﷼': 'rial', '₠': 'ecu', '¤': 'currency', '฿': 'baht',
-  "$": 'dollar',
+  // '€': 'euro', '₢': 'cruzeiro', '₣': 'french franc', '£': 'pound',
+  // '₤': 'lira', '₥': 'mill', '₦': 'naira', '₧': 'peseta', '₨': 'rupee',
+  // '₩': 'won', '₪': 'new shequel', '₫': 'dong', '₭': 'kip', '₮': 'tugrik',
+  // '₯': 'drachma', '₰': 'penny', '₱': 'peso', '₲': 'guarani', '₳': 'austral',
+  // '₴': 'hryvnia', '₵': 'cedi', '¢': 'cent', '¥': 'yen', '元': 'yuan',
+  // '円': 'yen', '﷼': 'rial', '₠': 'ecu', '¤': 'currency', '฿': 'baht',
+  // "$": 'dollar'
   // symbols
-  '©':'(c)', 'œ': 'oe', 'Œ': 'OE', '∑': 'sum', '®': '(r)', '†': '+',
-  '“': '"', '”': '"', '‘': "'", '’': "'", '∂': 'd', 'ƒ': 'f', '™': 'tm',
-  '℠': 'sm', '…': '...', '˚': 'o', 'º': 'o', 'ª': 'a', '•': '*',
-  '∆': 'delta', '∞': 'infinity', '♥': 'love', '&': 'and', '|': 'or',
-  '<': 'less', '>': 'greater'
+  // '©':'(c)', 'œ': 'oe', 'Œ': 'OE', '∑': 'sum', '®': '(r)', '†': '+',
+  // '“': '"', '”': '"', '‘': "'", '’': "'", '∂': 'd', 'ƒ': 'f', '™': 'tm',
+  // '℠': 'sm', '…': '...', '˚': 'o', 'º': 'o', 'ª': 'a', '•': '*',
+  // '∆': 'delta', '∞': 'infinity', '♥': 'love', '&': 'and', '|': 'or',
+  // '<': 'less', '>': 'greater'
 };
 
-exports = module.exports = function (string, replacement) {
+const slugify = (string, replacement) => {
   replacement = replacement || '-';
-  var result = '';
-  for (var i=0; i < string.length; i++) {
-    var ch = string[i];
+
+  let result = '';
+  for (let i=0; i < string.length; i++) {
+    let ch = string[i];
     if (charMap[ch]) {
       ch = charMap[ch];
     }
-    ch = ch.replace(/[^\w\s$\*\_\+~\.\(\)\'\"\!\-:@]/g, ''); // allowed
     result += ch;
   }
-  result = result.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
-  result = result.replace(/[-\s]+/g, replacement); // convert spaces
-  result.replace("#{replacement}$", ''); // remove trailing separator
+
+  result = result.trim() // trim leading/trailing spaces
+                .replace(/[-\s]+/g, replacement) // convert spaces
+                .replace(/-{2,}/, replacement)
+                .replace("#{replacement}$", '') // remove trailing separator
+                .toLowerCase() // lowcase
+                .replace(/[^ 0-9-a-z]/g, '');
+
   return result;
-}
+};
+
+export default slugify;

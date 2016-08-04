@@ -8,19 +8,32 @@
     "url",
     "urlify"
   ],
+  "scripts": {
+    "build": "babel ./src -d ./dist"
+  },
   "license": "MIT",
-  "homepage": "https://github.com/simov/slugify",
+  "homepage": "https://github.com/AraanBranco/slugify",
   "author": {
     "name": "simo",
     "email": "simeonvelichkov@gmail.com"
   },
+  "contributors": [
+    {
+      "name": "Araan Branco",
+      "email": "araan666@gmail.com"
+    }
+  ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/simov/slugify.git"
+    "url": "git@github.com:AraanBranco/slugify.git"
   },
   "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
     "mocha": "*",
+    "regenerator": "^0.8.46",
     "should": "*"
   },
-  "main": "./lib/slugify"
+  "main": "./dist/slugify"
 }

@@ -1,5 +1,5 @@
 
-var slugify = require('../lib/slugify');
+var slugify = require('./slugify');
 
 
 describe('slugify', function () {
@@ -38,7 +38,7 @@ describe('slugify', function () {
       'ð': 'd', 'ñ': 'n', 'ò': 'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o',
       'ő': 'o', 'ø': 'o', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ű': 'u',
       'ý': 'y', 'þ': 'th', 'ÿ': 'y', 'ẞ': 'SS'
-    }
+    };
     for (var ch in charMap) {
       slugify("foo "+ch+" bar baz").should.eql("foo-"+charMap[ch]+"-bar-baz");
     }
@@ -56,7 +56,7 @@ describe('slugify', function () {
       'Ρ':'R', 'Σ':'S', 'Τ':'T', 'Υ':'Y', 'Φ':'F', 'Χ':'X', 'Ψ':'PS', 'Ω':'W',
       'Ά':'A', 'Έ':'E', 'Ί':'I', 'Ό':'O', 'Ύ':'Y', 'Ή':'H', 'Ώ':'W', 'Ϊ':'I',
       'Ϋ':'Y'
-    }
+    };
     for (var ch in charMap) {
       slugify("foo "+ch+" bar baz").should.eql("foo-"+charMap[ch]+"-bar-baz");
     }
@@ -66,7 +66,7 @@ describe('slugify', function () {
     var charMap = {
       'ş':'s', 'Ş':'S', 'ı':'i', 'İ':'I', 'ç':'c', 'Ç':'C', 'ü':'u', 'Ü':'U',
       'ö':'o', 'Ö':'O', 'ğ':'g', 'Ğ':'G'
-    }
+    };
     for (var ch in charMap) {
       slugify("foo "+ch+" bar baz").should.eql("foo-"+charMap[ch]+"-bar-baz");
     }
